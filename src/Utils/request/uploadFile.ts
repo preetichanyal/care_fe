@@ -28,9 +28,9 @@ const uploadFile = async (
     const xhr = new XMLHttpRequest();
     xhr.open(reqMethod, url);
 
-    Object.entries(headers).forEach(([key, value]) => {
+    /* Object.entries(headers).forEach(([key, value]) => {
       xhr.setRequestHeader(key, value);
-    });
+    });*/
 
     xhr.onload = () => {
       onLoad(xhr);

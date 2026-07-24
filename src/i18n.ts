@@ -40,8 +40,9 @@ const namespaceToUrl = (namespace: string) => {
     pluginConfig?.meta?.url &&
     z.url().safeParse(pluginConfig.meta.url).success
   ) {
-    const url = new URL(pluginConfig.meta.url);
-    return url.origin.toString();
+    //const url = new URL(pluginConfig.meta.url);
+    //return url.origin.toString();
+    return pluginConfig.meta.url.replace(/\/assets\/remoteEntry\.js$/, "");
   }
 
   return undefined;

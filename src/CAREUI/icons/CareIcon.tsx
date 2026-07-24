@@ -30,10 +30,28 @@ export default function CareIcon({
 
   const isDuoTone = icon.startsWith("d-");
 
-  const [viewBox, path, fill, strokeWidth, secondaryPath] = (
+  /*const [viewBox, path, fill, strokeWidth, secondaryPath] = (
     (isDuoTone ? duoToneIconData : iconData) as typeof iconData &
       typeof duoToneIconData
-  )[icon] as [
+  )[icon] as [*/
+
+  // Type-safe access
+  const iconCollection = isDuoTone
+    ? (duoToneIconData as Record<string, (string | number)[]>)
+    : (iconData as Record<string, (string | number)[]>);
+
+  const iconArray = iconCollection[icon as string]; // <-- type assertion fixes TS error
+
+  if (!iconArray) {
+    console.warn(
+      `CareIcon: Icon "${icon}" not found in ${
+        isDuoTone ? "DuoTonePaths" : "UniconPaths"
+      }.`,
+    );
+    return null;
+  }
+
+  const [viewBox, path, fill, strokeWidth, secondaryPath] = iconArray as [
     number,
     string,
     boolean | undefined,
